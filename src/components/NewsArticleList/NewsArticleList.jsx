@@ -1,76 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { receiveNewsArticles } from '../../actions/articleActions';
 import Article from '../../components/Article/Article';
 import './NewsArticleList.scss';
 
 const NewsArticleList = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [page, setPage] = useState(1);
   const [articles, setArticles] = useState([]);
+  const [displayedArticles, setDisplayedArticles] = useState(10);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate(); 
+
+  const loadMoreArticles = () => {
+    if (displayedArticles + 5 <= articles.length) {
+      setDisplayedArticles(displayedArticles + 3);
+    } else {
+      setDisplayedArticles(articles.length);
+    }
+  };
+
+  const fetchNewsArticles = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=42ba9f1870944cbeae875392f7b8887d');
+      const data = await response.json();
+
+      setArticles(data.articles);
+      dispatch(receiveNewsArticles(data.articles));
+    } catch (error) {
+      console.error('Error fetching news articles:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchNewsArticles = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=42ba9f1870944cbeae875392f7b8887d&page=${page}`);
-        const data = await response.json();
-    
-        setArticles((prevArticles) => {
-          const newArticles = data.articles.filter((article) => !prevArticles.some((a) => a.title === article.title));
-          return [...prevArticles, ...newArticles];
-        });
-    
-        dispatch(receiveNewsArticles(articles));
-      } catch (error) {
-        console.error('Error fetching news articles:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchNewsArticles();
-  }, [dispatch, page]);
-
-  const handleLoadMore = () => {
-    setPage(page + 1);
-  };
-
-  const navigateToHome = () => {
-    navigate('/articles');
-  };
+  }, [dispatch]);
 
   return (
     <div>
-      <h2 className='title'>News Articles</h2>
-      <button
-        onClick={navigateToHome}
-        className='back__button'
-      >
-        Back
-      </button>
+      <h2 className="title">News Articles</h2>
 
-      {isLoading ? (
-        <p>Loading news articles...</p>
-      ) : (
-        <ul className='articles'>
-          {articles.map((article, index) => (
-            <li key={index} className='article'>
-              <Article article={article} />
-            </li>
-          ))}
-        </ul>
+      <ul className="articles">
+        {articles.slice(0, displayedArticles).map((article, index) => (
+          <li key={index} className="article">
+            <Article article={article} />
+          </li>
+        ))}
+      </ul>
+
+      {articles.length > displayedArticles && (
+        <button onClick={loadMoreArticles} className="load__button">
+          Load More
+        </button>
       )}
-      <button
-        onClick={handleLoadMore}
-        className='load__button'
-      >
-        Load More
-      </button>
     </div>
   );
 };

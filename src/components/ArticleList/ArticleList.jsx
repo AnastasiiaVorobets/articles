@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Article from '../Article/Article';
 import './ArticleList.scss';
@@ -12,6 +11,7 @@ const ArticleList = () => {
   const dispatch = useDispatch();
 
   const handleRemoveArticle = (articleId) => {
+    console.log("Removing article with ID:", articleId);
     dispatch(removeArticle(articleId));
   };
 

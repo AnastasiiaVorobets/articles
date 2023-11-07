@@ -15,7 +15,11 @@ const UserArticleForm = () => {
 
   const handleAddArticle = () => {
     if (newArticle.image && newArticle.author && newArticle.description && newArticle.title) {
-      dispatch(addArticle(newArticle));
+      const articleWithId = {
+        ...newArticle,
+        id: Date.now(),
+      };
+      dispatch(addArticle(articleWithId));
       setNewArticle({
         image: '',
         author: '',
@@ -29,51 +33,50 @@ const UserArticleForm = () => {
     <div>
       <h2 className="title">Create an Article</h2>
       <div className="user-article-form">
+        <div className="input-container">
+          <input
+            className="input title-input"
+            type="text"
+            placeholder="Title"
+            value={newArticle.title}
+            required
+            onChange={(e) => setNewArticle({ ...newArticle, title: e.target.value })}
+          />
 
-      <div className="input-container">
-      <input
-          className="input title-input"
-          type="text"
-          placeholder="Title"
-          value={newArticle.title}
-          required
-          onChange={(e) => setNewArticle({ ...newArticle, title: e.target.value })}
-        />
+          <input
+            className="input description-input"
+            type="text"
+            placeholder="Description"
+            value={newArticle.description}
+            required
+            onChange={(e) => setNewArticle({ ...newArticle, description: e.target.value })}
+          />
 
-        <input
-          className="input description-input"
-          type="text"
-          placeholder="Description"
-          value={newArticle.description}
-          required
-          onChange={(e) => setNewArticle({ ...newArticle, description: e.target.value })}
-        />
+          <input
+            className="input author-input"
+            type="text"
+            placeholder="Author"
+            value={newArticle.author}
+            required
+            onChange={(e) => setNewArticle({ ...newArticle, author: e.target.value })}
+          />
 
-        <input
-          className="input author-input"
-          type="text"
-          placeholder="Author"
-          value={newArticle.author}
-          required
-          onChange={(e) => setNewArticle({ ...newArticle, author: e.target.value })}
-        />
-
-        <input
-          className="input image-input"
-          type="text"
-          placeholder="Image URL"
-          value={newArticle.image}
-          required
-          onChange={(e) => setNewArticle({ ...newArticle, image: e.target.value })}
-        />
+          <input
+            className="input image-input"
+            type="text"
+            placeholder="Image URL"
+            value={newArticle.image}
+            required
+            onChange={(e) => setNewArticle({ ...newArticle, image: e.target.value })}
+          />
+        </div>
+        <button
+          className="button"
+          onClick={handleAddArticle}
+        >
+          Add Article
+        </button>
       </div>
-      <button
-        className="button"
-        onClick={handleAddArticle}
-      >
-        Add Article
-      </button>
-    </div>
     </div>
   );
 };
