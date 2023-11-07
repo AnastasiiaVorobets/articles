@@ -2,7 +2,6 @@ const initialState = {
   articles: [],
   pinnedArticle: null,
   searchQuery: '',
-  searchedArticles: [],
 };
 
 const articleReducer = (state = initialState, action) => {
@@ -25,18 +24,11 @@ const articleReducer = (state = initialState, action) => {
         pinnedArticle: action.payload,
       };
 
-      case 'SEARCH_ARTICLES':
-        if (action.payload) {
-          return {
-            ...state,
-            articles: state.articles.filter((article) => {
-              return article.title.toLowerCase().includes(action.payload.toLowerCase());
-            }),
-          };
-        }
-        else {
-          return initialState;
-      }
+    case 'SEARCH_ARTICLES':
+      return {
+        ...state,
+        searchQuery: action.payload,
+      };
 
     default:
       return state;
