@@ -1,0 +1,13 @@
+.search__field {
+  margin: 0 auto;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.search__button {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
