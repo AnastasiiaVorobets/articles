@@ -19,19 +19,16 @@ const NewsArticleList = () => {
       try {
         const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=42ba9f1870944cbeae875392f7b8887d&page=${page}`);
         const data = await response.json();
-
-        const newArticles = data.articles
-          .filter((article) => !articles.some((a) => a.title === article.title));
-        setArticles([...articles, ...newArticles]);
-
+    
+        setArticles((prevArticles) => {
+          const newArticles = data.articles.filter((article) => !prevArticles.some((a) => a.title === article.title));
+          return [...prevArticles, ...newArticles];
+        });
+    
         dispatch(receiveNewsArticles(articles));
-      }
-
-      catch (error) {
+      } catch (error) {
         console.error('Error fetching news articles:', error);
-      }
-
-      finally {
+      } finally {
         setIsLoading(false);
       }
     };
