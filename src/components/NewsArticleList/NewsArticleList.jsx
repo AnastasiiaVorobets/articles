@@ -37,7 +37,7 @@ const NewsArticleList = () => {
     };
 
     fetchNewsArticles();
-  }, [dispatch, page, articles]);
+  }, [dispatch, page]);
 
   const handleLoadMore = () => {
     setPage(page + 1);
