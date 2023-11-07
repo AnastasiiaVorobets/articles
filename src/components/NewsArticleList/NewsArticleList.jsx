@@ -44,7 +44,7 @@ const NewsArticleList = () => {
   };
 
   const navigateToHome = () => {
-    navigate('/');
+    navigate('/articles');
   };
 
   return (
