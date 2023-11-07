@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { receiveNewsArticles } from '../../actions/articleActions';
 import Article from '../../components/Article/Article';
 import './NewsArticleList.scss';
@@ -10,7 +11,12 @@ const NewsArticleList = () => {
   const [displayedArticles, setDisplayedArticles] = useState(10);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const navigateToHome = () => {
+    navigate('/articles');
+  };
+  
   const loadMoreArticles = () => {
     if (displayedArticles + 5 <= articles.length) {
       setDisplayedArticles(displayedArticles + 3);
@@ -28,9 +34,13 @@ const NewsArticleList = () => {
 
       setArticles(data.articles);
       dispatch(receiveNewsArticles(data.articles));
-    } catch (error) {
+    }
+
+    catch (error) {
       console.error('Error fetching news articles:', error);
-    } finally {
+    }
+
+    finally {
       setIsLoading(false);
     }
   };
@@ -42,6 +52,10 @@ const NewsArticleList = () => {
   return (
     <div>
       <h2 className="title">News Articles</h2>
+
+      <button onClick={navigateToHome} className="back__button">
+        Back
+      </button>
 
       <ul className="articles">
         {articles.slice(0, displayedArticles).map((article, index) => (

@@ -17,7 +17,7 @@ const ArticleList = () => {
 
   const handlePinArticle = (article) => {
     if (pinnedArticle && pinnedArticle.id === article.id) {
-      dispatch(pinArticle(null));
+      dispatch(pinArticle(false));
     } else {
       dispatch(pinArticle(article));
     }

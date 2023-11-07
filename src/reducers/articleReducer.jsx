@@ -29,7 +29,8 @@ const articleReducer = (state = initialState, action) => {
       const updatedArticles = state.articles.map((article) => {
         if (article.id === action.payload.id) {
           return { ...article, pinned: true };
-        } else {
+        }
+        else {
           return { ...article, pinned: false };
         }
       });
