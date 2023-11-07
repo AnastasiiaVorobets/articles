@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { receiveNewsArticles } from '../../actions/articleActions';
 import Article from '../../components/Article/Article';
+import { receiveNewsArticles } from '../../actions/articleActions';
 import './NewsArticleList.scss';
 
 const NewsArticleList = () => {
@@ -19,8 +19,9 @@ const NewsArticleList = () => {
   
   const loadMoreArticles = () => {
     if (displayedArticles + 5 <= articles.length) {
-      setDisplayedArticles(displayedArticles + 3);
-    } else {
+      setDisplayedArticles(displayedArticles + 10);
+    }
+    else {
       setDisplayedArticles(articles.length);
     }
   };

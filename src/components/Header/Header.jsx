@@ -7,12 +7,15 @@ const Header = () => {
     <header className="header">
       <nav>
         <ul className="header__menu">
+
           <li className="header__menu-item">
             <Link to="/" className="header__menu-link">Home</Link>
           </li>
+
           <li className="header__menu-item">
             <Link to="/news" className="header__menu-link">News</Link>
           </li>
+
         </ul>
       </nav>
     </header>

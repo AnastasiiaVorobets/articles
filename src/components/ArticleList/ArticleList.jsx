@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Article from '../Article/Article';
-import './ArticleList.scss';
-import { removeArticle, pinArticle } from '../../actions/articleActions';
 import SearchBar from '../SearchBar/SearchBar';
+import { removeArticle, pinArticle } from '../../actions/articleActions';
+import './ArticleList.scss';
+
 
 const ArticleList = () => {
   const articles = useSelector((state) => state.articles.articles);
@@ -11,14 +12,14 @@ const ArticleList = () => {
   const dispatch = useDispatch();
 
   const handleRemoveArticle = (articleId) => {
-    console.log("Removing article with ID:", articleId);
     dispatch(removeArticle(articleId));
   };
 
   const handlePinArticle = (article) => {
     if (pinnedArticle && pinnedArticle.id === article.id) {
       dispatch(pinArticle(false));
-    } else {
+    }
+    else {
       dispatch(pinArticle(article));
     }
   };
@@ -31,12 +32,18 @@ const ArticleList = () => {
           .filter((article) =>
             article.title.toLowerCase().includes(searchQuery.toLowerCase())
           )
+          .sort((a, b) => (
+            pinnedArticle && pinnedArticle.id === a.id) ? -1 :
+            (pinnedArticle && pinnedArticle.id === b.id) ? 1 : 0
+          )
           .map((article) => (
             <li key={article.id} className='list__item'>
               <Article article={article} />
-              {pinnedArticle && pinnedArticle.id === article.id ? (
-                <span className='pinned'>Pinned</span>
-              ) : null}
+              {pinnedArticle && pinnedArticle.id === article.id 
+              ? (
+                <span className='pinned'>*</span>
+              )
+              : null}
               <div className='button-container'>
                 <button
                   className='list__button'
