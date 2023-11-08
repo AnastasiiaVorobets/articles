@@ -4,7 +4,6 @@ import SearchBar from '../SearchBar/SearchBar';
 import { removeArticle, pinArticle } from '../../actions/articleActions';
 import './ArticleList.scss';
 
-
 const ArticleList = () => {
   const articles = useSelector((state) => state.articles.articles);
   const pinnedArticle = useSelector((state) => state.articles.pinnedArticle);
@@ -24,18 +23,21 @@ const ArticleList = () => {
     }
   };
 
+  const filterArticles = (article) =>
+    article.title.toLowerCase().includes(searchQuery.toLowerCase());
+
+  const sortArticles = (a, b) => (
+    (pinnedArticle && pinnedArticle.id === a.id) ? -1 :
+    (pinnedArticle && pinnedArticle.id === b.id) ? 1 : 0
+  );
+
   return (
     <div>
       <SearchBar />
       <ul className='list'>
         {articles
-          .filter((article) =>
-            article.title.toLowerCase().includes(searchQuery.toLowerCase())
-          )
-          .sort((a, b) => (
-            pinnedArticle && pinnedArticle.id === a.id) ? -1 :
-            (pinnedArticle && pinnedArticle.id === b.id) ? 1 : 0
-          )
+          .filter(filterArticles)
+          .sort(sortArticles)
           .map((article) => (
             <li key={article.id} className='list__item'>
               <Article article={article} />

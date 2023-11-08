@@ -2,24 +2,20 @@
   padding: 2px 10px;
   font-size: 20px;
   background-color: #acacac;
-}
 
-.header__menu {
-  padding: 0;
-  display: flex;
-  justify-content: space-between;
-  list-style-type: none;
-}
+  &__menu {
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
 
-.header__menu-item {
-  padding: 20px 50px;
-}
+    &-item {
+      padding: 20px 50px;
+    }
 
-.header__menu-link {
-  color: black;
-  text-decoration: none;
-}
-
-.header__menu-link:hover {
-  text-decoration: underline;
+    &-link {
+      color: black;
+      text-decoration: none;
+    }
+  }
 }

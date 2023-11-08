@@ -54,7 +54,10 @@ const NewsArticleList = () => {
     <div>
       <h2 className="title">News Articles</h2>
 
-      <button onClick={navigateToHome} className="back__button">
+      <button 
+        onClick={navigateToHome}
+        className="back__button"
+      >
         Back
       </button>
 
@@ -67,7 +70,10 @@ const NewsArticleList = () => {
       </ul>
 
       {articles.length > displayedArticles && (
-        <button onClick={loadMoreArticles} className="load__button">
+        <button
+          onClick={loadMoreArticles}
+          className="load__button"
+        >
           Load More
         </button>
       )}

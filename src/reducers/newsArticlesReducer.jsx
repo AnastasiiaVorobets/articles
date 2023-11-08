@@ -10,7 +10,6 @@ const newsArticlesReducer = (state = initialState, action) => {
         articles: action.payload,
       };
 
-
     default:
       return state;
   }

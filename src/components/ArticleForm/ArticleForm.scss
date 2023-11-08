@@ -1,39 +1,38 @@
 .user-article-form {
   display: flex;
   justify-content: center;
-  
-  & .input-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+}
 
-    @media (max-width: 991px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
+.input-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 
-    @media (max-width: 575px) {
-      grid-template-columns: 1fr;
-    }
+  @media (max-width: 991px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-
-  & .input {
-    width: 200px;
-    padding: 10px;
-    margin: 5px;
-    border: 1px solid black;
+  @media (max-width: 575px) {
+    grid-template-columns: 1fr;
   }
+}
 
-  & .button {
-    display: flex;
-    align-self: center;
-    justify-content: center;
-    align-items: center;
-    margin: 0 15px;
-    height: 50px;
-    width: 100px;
-    text-align: 50px;
-    cursor: pointer;
-    background-color: black;
-    color: white;
-  }
+.input {
+  width: 200px;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+.button {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  margin: 0 15px;
+  height: 50px;
+  width: 100px;
+  text-align: 50px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
 }
